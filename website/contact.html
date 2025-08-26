@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontakt – Tech‑Support Zwickau</title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="Nehmen Sie Kontakt mit uns auf. Hier finden Sie unsere Kontaktdaten, Öffnungszeiten und ein Formular für Ihre Anfrage.">
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">Tech‑Support&nbsp;Zwickau</div>
+      <ul>
+        <li><a href="index.html">Startseite</a></li>
+        <li><a href="about.html">Über&nbsp;uns</a></li>
+        <li><a href="services.html">Dienstleistungen</a></li>
+        <li><a href="contact.html">Kontakt</a></li>
+        <li><a href="blog.html">Blog/FAQ</a></li>
+        <li><a href="shop.html">Shop</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Contact Hero -->
+  <section class="hero" style="background-image: url('images/hero.png');">
+    <div class="hero-content">
+      <h1>Kontakt</h1>
+      <p>Wir sind gerne für Sie da – telefonisch, per E‑Mail oder persönlich vor Ort.</p>
+    </div>
+  </section>
+
+  <main>
+    <section>
+      <h2>So erreichen Sie uns</h2>
+      <div class="contact-info">
+        <p><strong>Telefon:</strong> <a href="tel:+49375123456" style="color: var(--accent-color); text-decoration: underline;">+49&nbsp;375&nbsp;123456</a></p>
+        <p><strong>E‑Mail:</strong> <a href="mailto:info@tech-support-zwickau.de" style="color: var(--accent-color); text-decoration: underline;">info@tech-support-zwickau.de</a></p>
+        <p><strong>Adresse:</strong> Bahnhofstraße&nbsp;1, 08056&nbsp;Zwickau</p>
+        <p><strong>Öffnungszeiten:</strong> Montag–Freitag&nbsp;9:00–18:00&nbsp;Uhr, Samstag&nbsp;10:00–14:00&nbsp;Uhr</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Schreiben Sie uns</h2>
+      <form class="contact-form" id="contact-form" autocomplete="off">
+        <input type="text" id="contact-name" placeholder="Name" required>
+        <input type="email" id="contact-email" placeholder="E‑Mail" required>
+        <textarea id="contact-message" placeholder="Ihre Nachricht" required></textarea>
+        <button type="submit">Nachricht senden</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Tech‑Support Zwickau. Alle Rechte vorbehalten.</p>
+  </footer>
+
+  <script>
+    // Basic contact form feedback
+    document.addEventListener('DOMContentLoaded', function() {
+      const contactForm = document.getElementById('contact-form');
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('contact-name').value.trim();
+        const email = document.getElementById('contact-email').value.trim();
+        const message = document.getElementById('contact-message').value.trim();
+        if (!name || !email || !message) {
+          alert('Bitte füllen Sie alle Felder aus.');
+          return;
+        }
+        alert('Vielen Dank für Ihre Nachricht, ' + name + '! Wir werden uns so schnell wie möglich bei Ihnen melden.');
+        contactForm.reset();
+      });
+    });
+  </script>
+</body>
+</html>

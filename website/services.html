@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dienstleistungen – Tech‑Support Zwickau</title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="Entdecken Sie unsere umfassenden Dienstleistungen: Hardware‑Reparatur, Software‑Support, Datenrettung und individuelle IT‑Beratung. Buchen Sie Ihren Termin direkt online.">
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">Tech‑Support&nbsp;Zwickau</div>
+      <ul>
+        <li><a href="index.html">Startseite</a></li>
+        <li><a href="about.html">Über&nbsp;uns</a></li>
+        <li><a href="services.html">Dienstleistungen</a></li>
+        <li><a href="contact.html">Kontakt</a></li>
+        <li><a href="blog.html">Blog/FAQ</a></li>
+        <li><a href="shop.html">Shop</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Services Hero -->
+  <section class="hero" style="background-image: url('images/services-bg.png');">
+    <div class="hero-content">
+      <h1>Dienstleistungen</h1>
+      <p>Professionelle Unterstützung für alle Ihre Computer‑ und IT‑Belange.</p>
+    </div>
+  </section>
+
+  <main>
+    <!-- Service Details -->
+    <section>
+      <h2>Hardware‑Reparatur</h2>
+      <div class="about">
+        <p>Wir reparieren und warten Desktop‑Computer, Laptops, Server und mobile Geräte. Unsere Techniker arbeiten mit allen gängigen Marken und OEM‑Systemen. Dazu gehören der Austausch defekter Komponenten wie Festplatten, Arbeitsspeicher, Netzteile und Mainboards sowie die Aufrüstung bestehender Systeme.</p>
+        <p>Auch Peripheriegeräte wie Tastaturen, Mäuse, Displays und Drucker nehmen wir unter die Lupe. Wenn nötig, ersetzen wir Bauteile und beraten Sie bei der Auswahl neuer Hardware. Auf Wunsch kümmern wir uns um den fachgerechten Rücknahme und die Entsorgung alter Geräte.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Software, Viren &amp; Sicherheit</h2>
+      <div class="about">
+        <p>Softwareprobleme reichen von falschen Einstellungen bis hin zu hartnäckigen Viren und Spyware. Wir analysieren Fehler und beheben sie nachhaltig – sei es durch die Anpassung einzelner Einstellungen, die Neuinstallation einzelner Programme oder die komplette Neuaufsetzung Ihres Betriebssystems. Bei Bedarf führen wir eine Systemwiederherstellung durch, damit Sie schnell wieder arbeiten können.</p>
+        <p>Unser Security‑Team schützt Sie vor Malware und unerwünschter Software. Wir entfernen Viren und Trojaner, aktualisieren Sicherheitspatches und beraten Sie zu Firewall‑Einstellungen sowie Backup‑Strategien. Mit Remote‑Support können wir viele Probleme bequem aus der Ferne lösen.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Datenrettung &amp; Backup</h2>
+      <div class="about">
+        <p>Datenverlust kann durch defekte Festplatten, gelöschte Partitionen oder unsachgemäße Handhabung entstehen. Wir retten Ihre Daten von beschädigten Festplatten, SSDs, Speicherkarten und RAID‑Systemen. Mit moderner Software und viel Erfahrung kopieren wir Ihre Daten auf neue Medien, sofern die Hardware nicht irreparabel beschädigt ist.</p>
+        <p>Um zukünftigen Verlust zu vermeiden, richten wir Datensicherungen ein und migrieren Ihre Daten auf sichere Speichersysteme oder in die Cloud. Gerne beraten wir Sie zum Thema Datensicherheit und -archivierung.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Vor‑Ort‑ und Remote‑Support</h2>
+      <div class="about">
+        <p>Wir bieten flexible Service‑Optionen: Vor‑Ort‑Service bei Ihnen zu Hause oder in Ihrem Unternehmen, Reparaturen in unserer Werkstatt und Fernwartung über das Internet. Sie entscheiden, welche Variante am besten zu Ihrer Situation passt. Dank Remote‑Zugriff können viele Software‑Probleme in wenigen Minuten behoben werden – schnell, sicher und bequem.</p>
+        <p>Für umfangreichere Hardware‑Reparaturen holen wir Ihre Geräte ab und liefern sie repariert wieder an. Selbstverständlich holen wir auch Altgeräte zur fachgerechten Entsorgung ab.</p>
+      </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking">
+      <h2>Termin buchen</h2>
+      <p>Wählen Sie einen freien Termin aus unserem Kalender und den gewünschten Service aus. Wir bestätigen Ihre Anfrage per E‑Mail.</p>
+      <div class="booking-container">
+        <div style="display:flex;justify-content:center;align-items:center;margin-bottom:1rem;gap:1rem;">
+          <button id="prev-month" class="btn" style="padding:0.5rem 1rem;">&#8592; Vorheriger Monat</button>
+          <span id="month-year" style="font-weight:bold;"></span>
+          <button id="next-month" class="btn" style="padding:0.5rem 1rem;">Nächster Monat &#8594;</button>
+        </div>
+        <table class="calendar"></table>
+        <!-- Booking form -->
+        <form id="booking-form" class="booking-form" autocomplete="off">
+          <p>Gewählter Termin: <span id="booking-date-display">–</span></p>
+          <label for="service-select">Service auswählen</label>
+          <select id="service-select" required>
+            <option value="" disabled selected hidden>Bitte wählen…</option>
+            <option value="Hardware-Diagnose">Hardware‑Diagnose</option>
+            <option value="Software-/Systemfehler">Software‑/Systemfehler</option>
+            <option value="Virenentfernung">Virenentfernung</option>
+            <option value="Datenrettung">Datenrettung</option>
+            <option value="Netzwerk &amp; Internet">Netzwerk &amp; Internet</option>
+            <option value="Allgemeine Beratung">Allgemeine Beratung</option>
+          </select>
+          <label for="booking-name">Ihr Name</label>
+          <input type="text" id="booking-name" placeholder="Name" required>
+          <label for="booking-email">E‑Mail</label>
+          <input type="email" id="booking-email" placeholder="E‑Mail" required>
+          <input type="hidden" id="selected-date" name="selected-date">
+          <button type="submit" id="submit-booking">Anfrage senden</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Tech‑Support Zwickau. Alle Rechte vorbehalten.</p>
+  </footer>
+
+  <script src="js/calendar.js"></script>
+</body>
+</html>
