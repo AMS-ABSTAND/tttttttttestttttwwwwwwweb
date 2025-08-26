@@ -1,13 +1,10 @@
 /*
   Stylesheet for the PC‑Reparatur & Tech‑Support website.
 
-  Colour palette:
-    • primary colour (dark purple)    – used for headers, buttons and highlights
-    • secondary colour (darker purple) – used for cards and section backgrounds
-    • background colour (black)        – page background
-    • text colour (white)              – default foreground text colour
-
-  The design strives to be modern and inviting while maintaining readability.
+  Dieser Abschnitt enthält das ursprüngliche Design, das von der Originalseite
+  übernommen wurde. Farben, Layouts und Komponenten orientieren sich am
+  dunklen Purpur‑Farbschema und unterstützen sowohl Desktop‑ als auch
+  Mobile‑Ansichten.
 */
 
 :root {
@@ -395,4 +392,143 @@ footer {
   nav ul {
     gap: 0.75rem;
   }
+}
+
+/*
+  Erweiterte und neue Stile
+
+  Die nachfolgenden Regeln wurden ergänzt, um die interaktiven Features der
+  neugestalteten Seiten zu unterstützen. Dazu gehören das Akkordeon im
+  Blog/FAQ, ein komfortabler Nachrichtenspeicher im Kontaktbereich und die
+  Produktkarten sowie Steuerelemente im Shop. Diese Stile überschreiben
+  gegebenenfalls Basiseigenschaften oder fügen neue Klassen hinzu.
+*/
+
+/* Kollapsible sections (About page) */
+main section h2 {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+main section h2 span {
+  color: var(--link-hover);
+  font-size: 1.5rem;
+  margin-left: 0.5rem;
+}
+
+/* FAQ Akkordeon Icons */
+.faq-item h3 {
+  cursor: pointer;
+  position: relative;
+  padding-right: 1.5rem;
+}
+
+.faq-item h3::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.faq-item h3.active::after {
+  content: "–";
+}
+
+/* Kontaktformular gespeicherte Nachrichten */
+#messages {
+  max-width: 600px;
+  margin: 1rem auto;
+}
+
+#messages .message {
+  background-color: #12001e;
+  border: 1px solid #4a3d64;
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 0.5rem;
+  color: var(--accent-color);
+  text-align: left;
+}
+
+/* Shop controls */
+.shop-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.shop-controls label {
+  margin-right: 0.5rem;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.product-card {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.product-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100%) contrast(100%);
+}
+
+.product-card h3 {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+  color: var(--accent-color);
+}
+
+.product-card p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 0.5rem;
+}
+
+.product-card .price {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--accent-color);
+}
+
+.product-card button {
+  background-color: var(--primary-color);
+  color: var(--accent-color);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-card button:hover {
+  background-color: var(--link-hover);
 }

@@ -49,6 +49,8 @@
         <textarea id="contact-message" placeholder="Ihre Nachricht" required></textarea>
         <button type="submit">Nachricht senden</button>
       </form>
+      <!-- Container für gespeicherte Nachrichten -->
+      <div id="messages"></div>
     </section>
   </main>
 
@@ -56,10 +58,28 @@
     <p>&copy; 2025 Tech‑Support Zwickau. Alle Rechte vorbehalten.</p>
   </footer>
 
+  <!-- Verbesserte Kontaktformular-Logik mit Speicherung -->
   <script>
-    // Basic contact form feedback
     document.addEventListener('DOMContentLoaded', function() {
       const contactForm = document.getElementById('contact-form');
+      const messagesContainer = document.getElementById('messages');
+      // Lade vorhandene Nachrichten aus localStorage
+      let messages = [];
+      try {
+        messages = JSON.parse(localStorage.getItem('contactMessages')) || [];
+      } catch (e) {
+        messages = [];
+      }
+      function displayMessages() {
+        messagesContainer.innerHTML = '';
+        messages.forEach(function(msg) {
+          const div = document.createElement('div');
+          div.className = 'message';
+          div.innerHTML = `<strong>${msg.name}</strong> (${msg.email}): ${msg.message}`;
+          messagesContainer.appendChild(div);
+        });
+      }
+      displayMessages();
       contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const name = document.getElementById('contact-name').value.trim();
@@ -69,8 +89,12 @@
           alert('Bitte füllen Sie alle Felder aus.');
           return;
         }
-        alert('Vielen Dank für Ihre Nachricht, ' + name + '! Wir werden uns so schnell wie möglich bei Ihnen melden.');
+        // Neue Nachricht speichern
+        messages.push({ name: name, email: email, message: message });
+        localStorage.setItem('contactMessages', JSON.stringify(messages));
+        displayMessages();
         contactForm.reset();
+        alert('Vielen Dank für Ihre Nachricht, ' + name + '! Wir werden uns so schnell wie möglich bei Ihnen melden.');
       });
     });
   </script>

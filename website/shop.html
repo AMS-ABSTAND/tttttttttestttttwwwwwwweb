@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shop – Tech‑Support Zwickau</title>
   <link rel="stylesheet" href="css/style.css">
-  <meta name="description" content="In Kürze verfügbar: Unser Online‑Shop mit Zubehör, Ersatzteilen, Software‑Lizenzen und Service‑Gutscheinen.">
+  <meta name="description" content="Unser Online‑Shop mit Zubehör, Ersatzteilen, Software‑Lizenzen und Service‑Gutscheinen.">
 </head>
 <body>
   <header>
@@ -26,15 +26,26 @@
   <section class="hero" style="background-image: url('images/about-bg.png');">
     <div class="hero-content">
       <h1>Unser Shop</h1>
-      <p>Bald verfügbar: Zubehör, Ersatzteile, Software‑Lizenzen und Service‑Gutscheine.</p>
+      <p>Bequem Zubehör, Ersatzteile, Software‑Lizenzen und Service‑Gutscheine bestellen.</p>
     </div>
   </section>
 
   <main>
     <section>
-      <h2>Der Shop befindet sich im Aufbau</h2>
-      <p style="max-width:800px;margin:0 auto;text-align:center;">Wir erweitern unser Angebot um einen Online‑Shop, damit Sie bequem Zubehör und Ersatzteile bestellen oder Gutscheine für unsere Dienstleistungen erwerben können. Schauen Sie bald wieder vorbei!</p>
+      <h2>Über unseren Shop</h2>
+      <p style="max-width:800px;margin:0 auto;text-align:center;">Willkommen in unserem Online‑Shop. Hier können Sie bequem Zubehör, Ersatzteile, Lizenzen und Gutscheine rund um Ihren Computer bestellen. Entdecken Sie unser Angebot und legen Sie Ihre gewünschten Artikel in den Warenkorb.</p>
     </section>
+
+    <section>
+      <h2>Shop</h2>
+      <div class="shop-controls">
+        <label for="category-filter">Kategorie auswählen:</label>
+        <select id="category-filter"></select>
+        <span>Warenkorb: <span id="cart-count">0</span> Artikel</span>
+      </div>
+      <div id="product-list" class="product-list"></div>
+    </section>
+
     <section>
       <h2>Geplante Kategorien</h2>
       <div class="features">
@@ -65,5 +76,7 @@
   <footer>
     <p>&copy; 2025 Tech‑Support Zwickau. Alle Rechte vorbehalten.</p>
   </footer>
+
+  <script src="js/shop.js"></script>
 </body>
 </html>

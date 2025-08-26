@@ -1,14 +1,13 @@
 /*
-  Simple booking calendar implementation.
+  Erweiterte Buchungskalender‑Logik für die Tech‑Support‑Website.
 
-  The calendar displays the current month and highlights the days that are
-  available for booking based on a JSON file located at `data/availability.json`.
-  When an available date is clicked, a booking form is revealed allowing users
-  to choose a service and enter their contact information.
-
-  Administrators can update `data/availability.json` to control which days
-  appear as available. Only dates explicitly listed in the JSON will be
-  selectable by customers.
+  Diese Datei basiert auf dem einfachen Kalender aus der Original‑Vorlage und
+  wurde erweitert, um Buchungen im Browser persistent zu speichern. Das
+  Kalenderwidget liest verfügbare Termine aus `data/availability.json`,
+  visualisiert sie und zeigt ein Buchungsformular an, sobald ein freier Tag
+  ausgewählt wurde. Bei einer erfolgreichen Anfrage wird der Termin zusammen
+  mit den eingegebenen Kundendaten im localStorage gespeichert, sodass eine
+  spätere Auswertung möglich ist.
 */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -21,14 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const bookingDateInput = document.getElementById('selected-date');
   const submitButton = document.getElementById('submit-booking');
 
-  // If the calendar is not present on this page, abort early.
+  // Falls der Kalender nicht vorhanden ist (z.B. auf anderen Seiten), keine Aktion.
   if (!calendarEl) return;
 
   let availability = [];
   let currentDate = new Date();
   let selectedDate = null;
 
-  // Fetch available dates from the JSON file
+  // Lese verfügbare Daten aus dem JSON
   fetch('data/availability.json')
     .then(response => response.json())
     .then(data => {
@@ -36,15 +35,29 @@ document.addEventListener('DOMContentLoaded', () => {
       renderCalendar(currentDate);
     })
     .catch(err => {
-      console.error('Failed to load availability data:', err);
+      console.warn('Konnte availability.json nicht laden, verwende Fallback-Daten.', err);
+      // Fallback‑Liste für freie Termine (identisch mit availability.json)
+      availability = [
+        '2025-09-01',
+        '2025-09-02',
+        '2025-09-03',
+        '2025-09-05',
+        '2025-09-07',
+        '2025-09-10',
+        '2025-09-15',
+        '2025-09-20'
+      ];
       renderCalendar(currentDate);
     });
 
-  // Render the calendar for a given month and year
+  /**
+   * Rendert den Kalender für ein bestimmtes Datum (Monat/Jahr).
+   * @param {Date} date
+   */
   function renderCalendar(date) {
     const year = date.getFullYear();
     const month = date.getMonth();
-    // Update month-year label
+    // Beschriftung aktualisieren
     const monthNames = [
       'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
       'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'
@@ -52,17 +65,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (monthYearLabel) {
       monthYearLabel.textContent = `${monthNames[month]} ${year}`;
     }
-
-    // Determine first and last day of month
+    // Erster und letzter Tag bestimmen
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
-    const startDayOfWeek = firstDay.getDay(); // 0 (Sun) – 6 (Sat)
+    const startDayOfWeek = firstDay.getDay();
     const totalDays = lastDay.getDate();
-
-    // Clear existing rows
+    // Kalender leeren
     calendarEl.innerHTML = '';
-
-    // Create header row for weekdays
+    // Kopfzeile
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
     const weekdayNames = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
@@ -73,23 +83,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     thead.appendChild(headerRow);
     calendarEl.appendChild(thead);
-
-    // Create body
+    // Tabellenkörper
     const tbody = document.createElement('tbody');
     let row = document.createElement('tr');
-    // Fill initial empty cells
+    // Leere Zellen am Monatsanfang
     for (let i = 0; i < startDayOfWeek; i++) {
       const cell = document.createElement('td');
       cell.classList.add('unavailable');
       row.appendChild(cell);
     }
-    // Fill days of month
+    // Tage ausfüllen
     for (let day = 1; day <= totalDays; day++) {
       const cellDate = new Date(year, month, day);
-      const dateStr = cellDate.toISOString().split('T')[0];
+      // Die ISO‑Darstellung von Date verwendet UTC und führt je nach Zeitzone zu
+      // Verschiebungen (z.B. wird ein lokaler 1.9. als 31.8. im ISO‑String
+      // ausgegeben). Deshalb wird hier der Zeitzonenversatz berücksichtigt,
+      // sodass das Datum korrekt als YYYY‑MM‑DD im lokalen Kontext vorliegt.
+      const localIso = new Date(cellDate.getTime() - cellDate.getTimezoneOffset() * 60000)
+        .toISOString();
+      const dateStr = localIso.split('T')[0];
       const cell = document.createElement('td');
       cell.textContent = day;
-      // Determine if date is available
       if (availability.includes(dateStr)) {
         cell.classList.add('available');
         cell.addEventListener('click', () => selectDate(dateStr, cell));
@@ -97,13 +111,13 @@ document.addEventListener('DOMContentLoaded', () => {
         cell.classList.add('unavailable');
       }
       row.appendChild(cell);
-      // If end of week, create new row
+      // Neue Zeile am Ende der Woche
       if ((startDayOfWeek + day) % 7 === 0) {
         tbody.appendChild(row);
         row = document.createElement('tr');
       }
     }
-    // Fill trailing empty cells to complete the grid
+    // Restliche Zellen auffüllen
     const remainingCells = 7 - row.children.length;
     if (remainingCells < 7) {
       for (let i = 0; i < remainingCells; i++) {
@@ -116,33 +130,29 @@ document.addEventListener('DOMContentLoaded', () => {
     calendarEl.appendChild(tbody);
   }
 
-  // Handle date selection
+  /**
+   * Wählt ein Datum aus und zeigt das Formular an.
+   * @param {string} dateStr ISO‑Datum (YYYY‑MM‑DD)
+   * @param {HTMLTableCellElement} cell
+   */
   function selectDate(dateStr, cell) {
-    // Deselect previous selection
+    // Bisherige Auswahl entfernen
     const previouslySelected = calendarEl.querySelector('.selected');
     if (previouslySelected) {
       previouslySelected.classList.remove('selected');
     }
     cell.classList.add('selected');
     selectedDate = dateStr;
-    if (bookingDateDisplay) {
-      bookingDateDisplay.textContent = selectedDate;
-    }
-    if (bookingDateInput) {
-      bookingDateInput.value = selectedDate;
-    }
-    // Show booking form
-    if (bookingForm) {
-      bookingForm.classList.add('visible');
-    }
+    if (bookingDateDisplay) bookingDateDisplay.textContent = selectedDate;
+    if (bookingDateInput) bookingDateInput.value = selectedDate;
+    if (bookingForm) bookingForm.classList.add('visible');
   }
 
-  // Navigation handlers
+  // Navigation
   if (prevBtn) {
     prevBtn.addEventListener('click', () => {
       currentDate.setMonth(currentDate.getMonth() - 1);
       renderCalendar(currentDate);
-      // Hide booking form when navigating months
       if (bookingForm) bookingForm.classList.remove('visible');
     });
   }
@@ -154,11 +164,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Submit handler (basic feedback)
+  // Formularübermittlung mit Persistenz
   if (submitButton) {
     submitButton.addEventListener('click', (e) => {
       e.preventDefault();
-      // Basic validation
       const name = document.getElementById('booking-name').value.trim();
       const email = document.getElementById('booking-email').value.trim();
       const service = document.getElementById('service-select').value;
@@ -166,16 +175,32 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Bitte füllen Sie alle Felder aus und wählen Sie einen Termin.');
         return;
       }
-      // Show confirmation message
-      alert(`Vielen Dank, ${name}! Ihre Buchungsanfrage für den ${selectedDate} (` +
-            `${service}) wurde gesendet. Wir werden uns in Kürze bei Ihnen melden.`);
-      // Reset form
+      // Bestehende Buchungen laden
+      let bookings = [];
+      try {
+        bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+      } catch (err) {
+        bookings = [];
+      }
+      // Neue Buchung hinzufügen
+      bookings.push({
+        date: selectedDate,
+        service: service,
+        name: name,
+        email: email,
+        createdAt: new Date().toISOString()
+      });
+      localStorage.setItem('bookings', JSON.stringify(bookings));
+      // Bestätigung anzeigen
+      alert(`Vielen Dank, ${name}! Ihre Buchungsanfrage für den ${selectedDate} (${service}) wurde gesendet. Wir werden uns in Kürze bei Ihnen melden.`);
+      // Formular zurücksetzen
       document.getElementById('booking-name').value = '';
       document.getElementById('booking-email').value = '';
       document.getElementById('service-select').selectedIndex = 0;
-      bookingForm.classList.remove('visible');
+      if (bookingForm) bookingForm.classList.remove('visible');
       const selectedCell = calendarEl.querySelector('.selected');
       if (selectedCell) selectedCell.classList.remove('selected');
+      selectedDate = null;
     });
   }
 });

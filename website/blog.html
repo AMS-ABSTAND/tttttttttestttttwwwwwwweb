@@ -61,5 +61,24 @@
   <footer>
     <p>&copy; 2025 Tech‑Support Zwickau. Alle Rechte vorbehalten.</p>
   </footer>
+
+  <!-- FAQ interaktiv machen -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.faq-item').forEach(function(item) {
+        const question = item.querySelector('h3');
+        const answer = question.nextElementSibling;
+        // Anfangszustand: Antworten ausblenden
+        answer.style.display = 'none';
+        question.style.cursor = 'pointer';
+        question.addEventListener('click', function() {
+          const isOpen = answer.style.display === 'block';
+          answer.style.display = isOpen ? 'none' : 'block';
+          // toggle class for arrow indicator via CSS
+          question.classList.toggle('active', !isOpen);
+        });
+      });
+    });
+  </script>
 </body>
 </html>

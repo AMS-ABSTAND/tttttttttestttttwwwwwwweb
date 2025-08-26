@@ -57,5 +57,29 @@
   <footer>
     <p>&copy; 2025 Tech‑Support Zwickau. Alle Rechte vorbehalten.</p>
   </footer>
+
+  <!-- Interaktive Abschnitte ein-/ausklappen -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Suche alle Abschnitte im Hauptteil
+      document.querySelectorAll('main section').forEach(function(section) {
+        const header = section.querySelector('h2');
+        const content = section.querySelector('.about');
+        // Nur Abschnitte mit .about werden toggelbar gemacht
+        if (header && content) {
+          content.style.display = 'none';
+          header.style.cursor = 'pointer';
+          const toggle = document.createElement('span');
+          toggle.textContent = ' +';
+          header.appendChild(toggle);
+          header.addEventListener('click', function() {
+            const isVisible = content.style.display === 'block';
+            content.style.display = isVisible ? 'none' : 'block';
+            toggle.textContent = isVisible ? ' +' : ' –';
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>

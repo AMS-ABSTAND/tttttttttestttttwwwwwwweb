@@ -1,0 +1,74 @@
+{
+  "categories": [
+    "Zubehör",
+    "Ersatzteile",
+    "Software & Lizenzen",
+    "Service‑Gutscheine"
+  ],
+  "products": [
+    {
+      "id": "kabel-01",
+      "name": "USB‑C Kabel 1 m",
+      "category": "Zubehör",
+      "description": "Hochwertiges USB‑C Kabel mit 1 m Länge für schnelle Datenübertragung und zuverlässiges Laden.",
+      "price": 9.99,
+      "image": "images/tools.svg"
+    },
+    {
+      "id": "maus-01",
+      "name": "Kabellose Maus",
+      "category": "Zubehör",
+      "description": "Ergonomische kabellose Maus mit hoher Präzision und langer Batterielaufzeit.",
+      "price": 24.99,
+      "image": "images/laptop-code.svg"
+    },
+    {
+      "id": "ssd-01",
+      "name": "256 GB SSD",
+      "category": "Ersatzteile",
+      "description": "Schnelle Solid‑State‑Disk für einen deutlichen Leistungsschub Ihres Computers.",
+      "price": 49.99,
+      "image": "images/database.svg"
+    },
+    {
+      "id": "ram-01",
+      "name": "8 GB DDR4 RAM",
+      "category": "Ersatzteile",
+      "description": "Arbeitsspeicher für flüssige Performance bei alltäglichen Aufgaben und Multitasking.",
+      "price": 34.99,
+      "image": "images/tools.svg"
+    },
+    {
+      "id": "office-01",
+      "name": "Office Suite Lizenz",
+      "category": "Software & Lizenzen",
+      "description": "Umfangreiche Office‑Suite für effizientes Arbeiten in Beruf und Freizeit.",
+      "price": 119.99,
+      "image": "images/laptop-code.svg"
+    },
+    {
+      "id": "security-01",
+      "name": "Sicherheitssoftware Jahreslizenz",
+      "category": "Software & Lizenzen",
+      "description": "Schützen Sie Ihre Geräte vor Viren, Malware und Phishing mit einer bewährten Sicherheitslösung.",
+      "price": 59.99,
+      "image": "images/database.svg"
+    },
+    {
+      "id": "gutschein-01",
+      "name": "Service‑Gutschein 1 h",
+      "category": "Service‑Gutscheine",
+      "description": "Verschenken Sie professionelle IT‑Hilfe: Gutschein für eine Stunde Support Ihrer Wahl.",
+      "price": 39.90,
+      "image": "images/tools.svg"
+    },
+    {
+      "id": "gutschein-02",
+      "name": "Service‑Gutschein 3 h",
+      "category": "Service‑Gutscheine",
+      "description": "Drei Stunden geballtes IT‑Know‑how – ideal für größere Projekte oder umfassende Beratung.",
+      "price": 99.90,
+      "image": "images/laptop-code.svg"
+    }
+  ]
+}

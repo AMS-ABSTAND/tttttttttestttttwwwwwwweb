@@ -71,5 +71,31 @@
   <footer>
     <p>&copy; 2025 Tech‑Support Zwickau. Alle Rechte vorbehalten.</p>
   </footer>
+
+  <!-- Dynamische Begrüßung -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const mainEl = document.querySelector('main');
+      const greeting = document.createElement('p');
+      greeting.id = 'greeting';
+      greeting.style.textAlign = 'center';
+      greeting.style.marginTop = '1rem';
+      // Insert greeting at the top of the main section
+      mainEl.insertBefore(greeting, mainEl.firstChild);
+      function updateGreeting() {
+        const now = new Date();
+        const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+        const dateStr = now.toLocaleDateString('de-DE', options);
+        let greetingText = '';
+        const hour = now.getHours();
+        if (hour < 12) greetingText = 'Guten Morgen';
+        else if (hour < 18) greetingText = 'Guten Tag';
+        else greetingText = 'Guten Abend';
+        greeting.textContent = `${greetingText}! Heute ist ${dateStr}.`;
+      }
+      updateGreeting();
+      setInterval(updateGreeting, 60000); // update every minute
+    });
+  </script>
 </body>
 </html>
